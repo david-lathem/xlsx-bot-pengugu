@@ -29,6 +29,9 @@ export default {
     const file = interaction.options.getAttachment("file", true);
     const talentName = interaction.options.getString("talent", true);
 
+
+    if (interaction.guildId !== process.env.GUILD_ID) return
+    
     if (!file.contentType?.endsWith("spreadsheetml.sheet"))
       throw new Error("Invalid file. Upload a .xlsx file.");
 

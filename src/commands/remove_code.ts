@@ -18,6 +18,8 @@ export default {
   autocomplete: talentAutoComplete,
 
   execute: async (interaction) => {
+        if (interaction.guildId !== process.env.GUILD_ID) return;
+
     const redeemCode = interaction.options.getString("code", true);
 
     const result = deleteRedeemCode.run({ redeemCode });

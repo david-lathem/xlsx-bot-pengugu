@@ -12,6 +12,8 @@ export default {
   autocomplete: talentAutoComplete,
 
   execute: async (interaction) => {
+    if (interaction.guildId !== process.env.GUILD_ID) return;
+
     const talentName = interaction.options.getString("talent", true);
 
     const talent = getTalent.get({ talentName });

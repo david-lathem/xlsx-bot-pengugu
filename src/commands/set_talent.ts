@@ -21,6 +21,8 @@ export default {
   ],
 
   execute: async (interaction) => {
+    if (interaction.guildId !== process.env.GUILD_ID) return;
+
     const talentName = interaction.options
       .getString("talent_name", true)
       .trim();
