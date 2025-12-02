@@ -1,4 +1,4 @@
-import { AttachmentBuilder } from "discord.js";
+import { AttachmentBuilder, PermissionFlagsBits } from "discord.js";
 import { extendedAPICommand } from "../utils/typings/types.js";
 import { talentOption } from "../utils/constants.js";
 import { getTalent, viewCodesForSpecificType } from "../database/queries.js";
@@ -10,6 +10,7 @@ export default {
   options: [talentOption],
 
   autocomplete: talentAutoComplete,
+  permissionRequired: PermissionFlagsBits.Administrator,
 
   execute: async (interaction) => {
     if (interaction.guildId !== process.env.GUILD_ID) return;

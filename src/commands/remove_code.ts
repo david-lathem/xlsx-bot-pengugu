@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord.js";
+import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 import { extendedAPICommand } from "../utils/typings/types.js";
 import { talentOption } from "../utils/constants.js";
 import { deleteRedeemCode } from "../database/queries.js";
@@ -15,6 +15,8 @@ export default {
       required: true,
     },
   ],
+    permissionRequired: PermissionFlagsBits.Administrator,
+  
   autocomplete: talentAutoComplete,
 
   execute: async (interaction) => {

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord.js";
+import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 import { extendedAPICommand } from "../utils/typings/types.js";
 import { createOrUpdateTalent } from "../database/queries.js";
 
@@ -19,6 +19,8 @@ export default {
       required: true,
     },
   ],
+    permissionRequired: PermissionFlagsBits.Administrator,
+  
 
   execute: async (interaction) => {
     if (interaction.guildId !== process.env.GUILD_ID) return;
