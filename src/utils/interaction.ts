@@ -6,7 +6,11 @@ export const handleInteractionError = async (
 ) => {
   console.log(error);
 
-  if (!interaction.isChatInputCommand() && !interaction.isMessageComponent())
+  if (
+    !interaction.isChatInputCommand() &&
+    !interaction.isMessageComponent() &&
+    !interaction.isModalSubmit()
+  )
     return;
 
   const content = `Err! \`${error.message}\``;
