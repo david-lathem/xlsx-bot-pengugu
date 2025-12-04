@@ -1,6 +1,10 @@
 import { BaseInteraction, MessageFlags } from "discord.js";
 import { handleInteractionError } from "../../utils/interaction.js";
-import { getACode, getTalent } from "../../database/queries.js";
+import {
+  deleteRedeemCode,
+  getACode,
+  getTalent,
+} from "../../database/queries.js";
 
 export default async (interaction: BaseInteraction) => {
   try {
@@ -30,6 +34,8 @@ export default async (interaction: BaseInteraction) => {
     const member = await guild.members.fetch(user.id);
 
     await member.roles.add(talent.roleId);
+
+    deleteRedeemCode.run({ redeemCode: code });
 
     await interaction.editReply("You have been given access");
   } catch (error) {
