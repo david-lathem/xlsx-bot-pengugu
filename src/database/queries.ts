@@ -36,8 +36,8 @@ export const viewCodesForSpecificType = db.prepare<queryByTalent, RedeemCode>(`
 
 export const removeNumberedCodes = db.prepare(`
 UPDATE redeemCodes
-SET code = REPLACE(code, '.0', '')
-WHERE code LIKE '%.0';
+SET redeemCode = REPLACE(redeemCode, '.0', '')
+WHERE redeemCode LIKE '%.0';
 `);
 
 export const createOrUpdateTalent = db.prepare<Talent>(`
