@@ -34,6 +34,12 @@ export const viewCodesForSpecificType = db.prepare<queryByTalent, RedeemCode>(`
   WHERE talentName = @talentName
 `);
 
+export const removeNumberedCodes = db.prepare(`
+UPDATE redeemCodes
+SET code = REPLACE(code, '.0', '')
+WHERE code LIKE '%.0';
+`);
+
 export const createOrUpdateTalent = db.prepare<Talent>(`
   INSERT INTO talents (talentName, roleId)
   VALUES (@talentName, @roleId)

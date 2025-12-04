@@ -1,4 +1,8 @@
-import { ApplicationCommandOptionType, MessageFlags } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  MessageFlags,
+  PermissionFlagsBits,
+} from "discord.js";
 import xlsx from "node-xlsx";
 
 import { extendedAPICommand } from "../utils/typings/types.js";
@@ -22,6 +26,7 @@ export default {
     },
     talentOption,
   ],
+  permissionRequired: PermissionFlagsBits.Administrator,
 
   autocomplete: talentAutoComplete,
 
@@ -29,9 +34,8 @@ export default {
     const file = interaction.options.getAttachment("file", true);
     const talentName = interaction.options.getString("talent", true);
 
+    if (interaction.guildId !== process.env.GUILD_ID) return;
 
-    if (interaction.guildId !== process.env.GUILD_ID) return
-    
     if (!file.contentType?.endsWith("spreadsheetml.sheet"))
       throw new Error("Invalid file. Upload a .xlsx file.");
 
@@ -49,7 +53,8 @@ export default {
     const codes = sheetParsed[0].data
       .slice(1)
       .map((row) => row[0])
-      .filter((code) => code);
+      .filter((code) => code)
+      .map((c) => c.toString());
 
     if (codes.length === 0) throw new Error("The txt file contains no codes.");
 
